@@ -1,0 +1,23 @@
+obj = {
+ "vetor": [
+{"nivel":"1","relevancia":"Perigosa","status":"Em Andamento","latitude":"-22.9068467","longitude":"-43.1728965","ocorrencia":"Queima","data":"16/8/2017","momento":"Novo"},
+{"nivel":"2","relevancia":"Perigosa","status":"Finalizando","latitude":"-22.7638274","longitude":"-43.45442116","ocorrencia":"Enchente","data":"16/8/2017","momento":"Novo"},
+{"nivel":"3","relevancia":"Perigosa","status":"Aguardando","latitude":"-22.88280973","longitude":"-43.42146217","ocorrencia":"Animal Morto","data":"16/8/2017","momento":"Novo"},
+{"nivel":"4","relevancia":"Perigosa","status":"Em Andamento","latitude":"-22.6954289","longitude":"-43.23744118","ocorrencia":"Queda de arvore","data":"16/8/2017","momento":"Novo"},
+{"nivel":"1","relevancia":"Perigosa","status":"Finalizando","latitude":"-22.68402583","longitude":"-43.46540749","ocorrencia":"Vazamento","data":"16/8/2017","momento":"Novo"},
+{"nivel":"2","relevancia":"Perigosa","status":"Aguardando","latitude":"-22.65614765","longitude":"-43.02183449","ocorrencia":"Queima","data":"16/8/2017","momento":"Novo"},
+{"nivel":"3","relevancia":"Perigosa","status":"Em Andamento","latitude":"-22.91665804","longitude":"-43.19824219","ocorrencia":"Enchente","data":"16/8/2017","momento":"Novo"},
+{"nivel":"4","relevancia":"Perigosa","status":"Finalizando","latitude":"-22.90274343","longitude":"-43.08151245","ocorrencia":"Animal Morto","data":"16/8/2017","momento":"Novo"},
+{"nivel":"1","relevancia":"Perigosa","status":"Aguardando","latitude":"-22.84960176","longitude":"-43.08151245","ocorrencia":"Queda de arvore","data":"16/8/2017","momento":"Novo"},
+{"nivel":"2","relevancia":"Perigosa","status":"Em Andamento","latitude":"-22.7951733","longitude":"-43.19274902","ocorrencia":"Vazamento","data":"16/8/2017","momento":"Novo"},
+{"nivel":"3","relevancia":"Perigosa","status":"Finalizando","latitude":"-22.99663134","longitude":"-43.17152321","ocorrencia":"Queima","data":"16/8/2017","momento":"Novo"},
+{"nivel":"4","relevancia":"Perigosa","status":"Aguardando","latitude":"-22.9175987","longitude":"-42.81446754","ocorrencia":"Enchente","data":"16/8/2017","momento":"Novo"},
+{"nivel":"1","relevancia":"Perigosa","status":"Em Andamento","latitude":"-23.00674418","longitude":"-43.28550636","ocorrencia":"Animal Morto","data":"16/8/2017","momento":"Novo"},
+{"nivel":"2","relevancia":"Perigosa","status":"Finalizando","latitude":"-22.99726341","longitude":"-43.36790382","ocorrencia":"Queda de arvore","data":"16/8/2017","momento":"Novo"},
+{"nivel":"3","relevancia":"Perigosa","status":"Aguardando","latitude":"-22.96565605","longitude":"-43.39399635","ocorrencia":"Vazamento","data":"16/8/2017","momento":"Novo"},
+{"nivel":"4","relevancia":"Perigosa","status":"Em Andamento","latitude":"-22.89040081","longitude":"-43.11659157","ocorrencia":"Queima","data":"16/8/2017","momento":"Novo"},
+{"nivel":"1","relevancia":"Perigosa","status":"Finalizando","latitude":"-22.82966026","longitude":"-43.13238442","ocorrencia":"Enchente","data":"16/8/2017","momento":"Novo"},
+{"nivel":"2","relevancia":"Perigosa","status":"Aguardando","latitude":"-22.70303042","longitude":"-43.05891335","ocorrencia":"Animal Morto","data":"16/8/2017","momento":"Novo"},
+{"nivel":"3","relevancia":"Perigosa","status":"Em Andamento","latitude":"-22.66882025","longitude":"-43.24911415","ocorrencia":"Queda de arvore","data":"16/8/2017","momento":"Novo"},
+{"nivel":"4","relevancia":"Perigosa","status":"Finalizando","latitude":"-22.75053038","longitude":"-43.27040016","ocorrencia":"Vazamento","data":"16/8/2017","momento":"Novo"}
+]}
