@@ -19,5 +19,5 @@ obj = {
 {"nivel":"1","relevancia":"Perigosa","status":"Finalizando","latitude":"-22.82966026","longitude":"-43.13238442","ocorrencia":"Enchente","data":"16/8/2017","momento":"Novo"},
 {"nivel":"2","relevancia":"Perigosa","status":"Aguardando","latitude":"-22.70303042","longitude":"-43.05891335","ocorrencia":"Animal Morto","data":"16/8/2017","momento":"Novo"},
 {"nivel":"3","relevancia":"Perigosa","status":"Em Andamento","latitude":"-22.66882025","longitude":"-43.24911415","ocorrencia":"Queda de arvore","data":"16/8/2017","momento":"Novo"},
-{"nivel":"4","relevancia":"Perigosa","status":"Finalizando","latitude":"-22.75053038","longitude":"-43.27040016","ocorrencia":"Vazamento","data":"16/8/2017","momento":"Novo"}
+//{"nivel":"4","relevancia":"Perigosa","status":"Finalizando","latitude":"-22.75053038","longitude":"-43.27040016","ocorrencia":"Vazamento","data":"16/8/2017","momento":"Novo"}
 ]}
