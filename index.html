@@ -6,12 +6,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
-  
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0/css/bootstrap.min.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0/css/bootstrap.css">  
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-  
-    <style>
+
+  <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
+  <link rel="stylesheet" href="bootstrap/css/bootstrap.css">  
+  <link rel="stylesheet" href="fontawesome/css/font-awesome.min.css">
+
+  <style>
       /* Always set the map height explicitly to define the size of the div
       * element that contains the map. */
       #map {
@@ -36,9 +36,9 @@
         line-height: 30px;
         padding-left: 10px;
       }
-      div.gm-style-iw{
+/*      div.gm-style-iw{
         height:200%;
-      }
+      }*/
       #legend {
         font-family: Arial, sans-serif;
         background: #fff;
@@ -55,75 +55,58 @@
       </style>
     </head>
     <body>
-      
+    
     <div id="floating-panel" class="hidden">
-      <input type="button" value="ancient button = 1" class="ocultaMarcador"></input>
-      <input type="button" value="ancient button= 0" class="mostraMarcador"></input>
+      <input type="button" value="ancient button = 1" class="ocultaMarcadorvermelho hidden"></input>
+      <input type="button" value="ancient button= 0" class="mostraMarcadorvermelho hidden"></input>
+      <input type="button" value="ancient button = 1" class="ocultaMarcadorazul hidden"></input>
+      <input type="button" value="ancient button= 0" class="mostraMarcadorazul hidden"></input>
+      <input type="button" value="ancient button = 1" class="ocultaMarcadorverde hidden"></input>
+      <input type="button" value="ancient button= 0" class="mostraMarcadorverde hidden"></input>
+      <input type="button" value="ancient button = 1" class="ocultaMarcadoramarelo hidden"></input>
+      <input type="button" value="ancient button= 0" class="mostraMarcadoramarelo hidden"></input>
+      <input type="button" value="ancient button = 1" class="ocultaMarcadorroxo hidden"></input>
+      <input type="button" value="ancient button= 0" class="mostraMarcadorroxo hidden"></input>
+
     </div>   
       <div id="map"></div>
       <div id="legend"><h3>Legenda</h3></div>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0/js/bootstrap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.0.0/js/bootstrap.js"></script>
+<!-- 
+      <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCaJxFyke87l3sHBTsjsFu3yCKhmYbs-zQ&callback=initMap"async defer></script> 
+    -->
+    <script src="lib/cliptwo/vendor/jquery/jquery.min.js"></script>
 
     <script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js"></script>
     <script src="data.json"></script>
     <script>
-      
+// alert("Não importa a cor do gato, o que importa é que ele caçe os ratos. Deng Xiao-ping");
+
+var Queima = 0;
+var Enchente = 0;
+var Animal = 0;
+var Queda = 0;
+var Vazamento = 0;
 
 var map, heatmap;
 var historicalOverlay;
 //COMECO FUNCAO   40.740, -74.18    -22.9068467,-43.1728965
 function initMap() {
-
-
   map = new google.maps.Map(document.getElementById('map'), {
     zoom: 9,
     center: new google.maps.LatLng(-22.9068467,-43.1728965),  
       mapTypeId: 'hybrid'//hybrid, roadmap - os melhores
     });
 
-//CONFIGURACAO HEATMAP
-heatmap = new google.maps.visualization.HeatmapLayer({
-  data: heatmapData(),
-  map: map
-});
-//CONFIGURACAO PERSONALIZACAO DO MARK
-var iconBase = 'http://maps.google.com/mapfiles/ms/icons/';
-var icons = {
-  vermelho: {
-    name: 'AnimalMorto',
-    icon: iconBase + 'red-dot.png'
-  },
-  azul: {
-    name: 'Enchente',
-    icon: iconBase + 'blue-dot.png'
-  },
-  verde: {
-    name: 'QuedadeArvore',
-    icon: iconBase + 'green-dot.png'
-  },
-  amarelo: {
-    name: 'Queima',
-    icon: iconBase + 'yellow-dot.png'
-  },
-  roxo: {
-    name: 'Vazamento',
-    icon: iconBase + 'purple-dot.png'
-  }          
-};
-
 //CONFIGURACAO MARK PERSONALIZADO
 // var alias[];
 var features = [];
 var alias = [];
 for(var i = 0; i < obj.vetor.length; i++){
-  if(obj.vetor[i].ocorrencia=='Queima'){var tipoMarcador = 'amarelo'}
-    if(obj.vetor[i].ocorrencia=='Enchente'){var tipoMarcador = 'azul'}
-      if(obj.vetor[i].ocorrencia=='Animal Morto'){var tipoMarcador = 'vermelho'}
-        if(obj.vetor[i].ocorrencia=='Queda de arvore'){var tipoMarcador = 'verde'}
-          if(obj.vetor[i].ocorrencia=='Vazamento'){var tipoMarcador = 'roxo'}
+  if(obj.vetor[i].ocorrencia=='Queima'){var tipoMarcador = 'amarelo'; Queima+=1;}
+    if(obj.vetor[i].ocorrencia=='Enchente'){var tipoMarcador = 'azul'; Enchente+=1;}
+      if(obj.vetor[i].ocorrencia=='Animal Morto'){var tipoMarcador = 'vermelho'; Animal+=1;}
+        if(obj.vetor[i].ocorrencia=='Queda de arvore'){var tipoMarcador = 'verde'; Queda+=1;}
+          if(obj.vetor[i].ocorrencia=='Vazamento'){var tipoMarcador = 'roxo'; Vazamento+=1;}
 
             features.push({position: new google.maps.LatLng(obj.vetor[i].latitude, obj.vetor[i].longitude),type: tipoMarcador},);       
           alias[i] = obj.vetor[i].ocorrencia;
@@ -137,8 +120,43 @@ for(var i = 0; i < obj.vetor.length; i++){
         // console.log(alias[i]);
 
       }
+
+//CONFIGURACAO PERSONALIZACAO DO MARK
+var iconBase = 'http://maps.google.com/mapfiles/ms/icons/';
+var icons = {
+  vermelho: {
+    name: 'AnimalMorto',
+    icon: iconBase + 'red-dot.png',
+    nameinlegend: 'Animal Morto',
+    numero: Animal
+  },
+  azul: {
+    name: 'Enchente',
+    icon: iconBase + 'blue-dot.png',
+    nameinlegend: 'Enchente',
+    numero: Enchente
+  },
+  verde: {
+    name: 'QuedadeArvore',
+    icon: iconBase + 'green-dot.png',
+    nameinlegend: 'Queda de Arvore',
+    numero: Queda
+  },
+  amarelo: {
+    name: 'Queima',
+    icon: iconBase + 'yellow-dot.png',
+    nameinlegend: 'Queima',
+    numero: Queima
+  },
+  roxo: {
+    name: 'Vazamento',
+    icon: iconBase + 'purple-dot.png',
+    nameinlegend: 'Vazamento',
+    numero: Vazamento
+  }          
+};
+
 // Create markers.
-// var markers = [];, markers.push(marker);, var markerCluster = new MarkerClusterer(map, markers, {imagePath: ''}); >> para o agrupamento
 var markers = [];
 features.forEach(function(feature) {
   var marker = new google.maps.Marker({
@@ -149,29 +167,7 @@ features.forEach(function(feature) {
   markers.push(marker);
 });
 
-var markerCluster = new MarkerClusterer(map, markers, {imagePath: '../img/m'});
-
-//PARA TROCAR O AGRUPADOR POR HEATMAP, APENAS COMENTE SEU AGRUPADOR E heatmap.setMap(null);, EM SEGUIDA DESCOMENTE O LAÇO E A FUNCAO ABAIXO!!!
-        // for(var i = 0; i < markers.length; i++){
-        //   markers[i].setMap(null);
-        // } 
-        // map.addListener('zoom_changed', function() {
-          // console.log(map.getZoom());
-
-        //   if (map.getZoom() == 10){heatmap.setMap(null);}
-        //   if (map.getZoom() <= 8){heatmap.setMap(map);}
-        //   if (map.getZoom() == 8){
-        //     for(var i = 0; i < markers.length; i++){
-        //       markers[i].setMap(null);
-        //     }      
-        //   }
-        //   if (map.getZoom() >= 10){
-        //     for(var i = 0; i < markers.length; i++){
-        //       markers[i].setMap(map);
-        //     }      
-        //   }    
-        // });
-heatmap.setMap(null);
+var markerCluster = new MarkerClusterer(map, markers, {imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'});
 
 var prioridade1 = "<span style='color: red'><i class='fa fa-circle' aria-hidden='true'></i>&nbsp;&nbsp;<i class='fa fa-circle' aria-hidden='true'></i>&nbsp;&nbsp;<i class='fa fa-circle' aria-hidden='true'></i>&nbsp;&nbsp;<i class='fa fa-circle' aria-hidden='true'></i></span>";
 var prioridade2 = "<span style='color: rgba(255,64,0,1);'><i class='fa fa-circle' aria-hidden='true'></i>&nbsp;&nbsp;<i class='fa fa-circle' aria-hidden='true'></i>&nbsp;&nbsp;<i class='fa fa-circle' aria-hidden='true'></i></span>&nbsp;&nbsp;<span style='color: rgba(255,64,0,0.5);'><i class='fa fa-circle' aria-hidden='true'></i></span>";
@@ -209,28 +205,93 @@ infowindow[i] = new google.maps.InfoWindow({
 laco(i);
 }
 
-$( ".ocultaMarcador" ).click(function() {
+$( ".ocultaMarcadorvermelho" ).click(function() {
 for (var i=0;i<markers.length;i++) {
   if (obj.vetor[i].ocorrencia=='Animal Morto')  {
-  markers[i].setVisible(false);
-  console.log(markers[i]);
-  markerCluster.removeMarkers( markerCluster.getMarkers() );}
+    markers[i].setVisible(false);
+    // alert(obj.vetor[i-1].id);
+  }
 }
 });
-$( ".mostraMarcador" ).click(function() {
+$( ".mostraMarcadorvermelho" ).click(function() {
 for (var i=0;i<markers.length;i++) {
   if (obj.vetor[i].ocorrencia=='Animal Morto')  {
-  markers[i].setVisible(true);
-  console.log(markers[i]);
-  markerCluster.addMarkers(markers);
-}
+    markers[i].setVisible(true);
+    // alert(obj.markers[i-1]);
+  }
 }
 });
+$( ".ocultaMarcadorazul" ).click(function() {
+for (var i=0;i<markers.length;i++) {
+  if (obj.vetor[i].ocorrencia=='Enchente')  {
+    markers[i].setVisible(false);
+    // alert(obj.vetor[i-1].id);
+  }
+}
+});
+$( ".mostraMarcadorazul" ).click(function() {
+for (var i=0;i<markers.length;i++) {
+  if (obj.vetor[i].ocorrencia=='Enchente')  {
+    markers[i].setVisible(true);
+    // alert(obj.markers[i-1]);
+  }
+}
+});
+$( ".ocultaMarcadorverde" ).click(function() {
+for (var i=0;i<markers.length;i++) {
+  if (obj.vetor[i].ocorrencia=='Queda de arvore')  {
+    markers[i].setVisible(false);
+    // alert(obj.vetor[i-1].id);
+  }
+}
+});
+$( ".mostraMarcadorverde" ).click(function() {
+for (var i=0;i<markers.length;i++) {
+  if (obj.vetor[i].ocorrencia=='Queda de arvore')  {
+    markers[i].setVisible(true);
+    // alert(obj.markers[i-1]);
+  }
+}
+});
+$( ".ocultaMarcadoramarelo" ).click(function() {
+for (var i=0;i<markers.length;i++) {
+  if (obj.vetor[i].ocorrencia=='Queima')  {
+    markers[i].setVisible(false);
+    // alert(obj.vetor[i-1].id);
+  }
+}
+});
+$( ".mostraMarcadoramarelo" ).click(function() {
+for (var i=0;i<markers.length;i++) {
+  if (obj.vetor[i].ocorrencia=='Queima')  {
+    markers[i].setVisible(true);
+    // alert(obj.markers[i-1]);
+  }
+}
+});
+$( ".ocultaMarcadorroxo" ).click(function() {
+for (var i=0;i<markers.length;i++) {
+  if (obj.vetor[i].ocorrencia=='Vazamento')  {
+    markers[i].setVisible(false);
+    // alert(obj.vetor[i-1].id);
+  }
+}
+});
+$( ".mostraMarcadorroxo" ).click(function() {
+for (var i=0;i<markers.length;i++) {
+  if (obj.vetor[i].ocorrencia=='Vazamento')  {
+    markers[i].setVisible(true);
+    // alert(obj.markers[i-1]);
+  }
+}
+});
+
 
 function laco(n){
   markers[n].addListener('click', function() {
     infowindow[n].open(map, markers[n]);
-  });
+    // alert(n);
+  });  
 }
 
 
@@ -238,9 +299,11 @@ var legend = document.getElementById('legend');
 for (var key in icons) {
   var type = icons[key];
   var name = type.name;
+  var nameinlegend = type.nameinlegend;
+  var numero = type.numero;  
   var icon = type.icon;
   var div = document.createElement('div');
-  div.innerHTML = '<img id="'+name+'" src="' + icon + '"> ' + name + '<br><br>';
+  div.innerHTML = '<img id="'+name+'" src="' + icon + '"> ' + nameinlegend + ' - ' + numero + '<br><br>';
   legend.appendChild(div);
 }
 
@@ -248,43 +311,9 @@ map.controls[google.maps.ControlPosition.RIGHT_BOTTOM].push(legend);
 // markers.push(marker);
 
 
-
-
-
 }
 //FIM FUNCAO
 //CONFIGURACAO HEATMAP CONFIGURANDO
-function toggleHeatmap() {
-  heatmap.setMap(heatmap.getMap() ? null : map);
-}
-
-function changeGradient() {
-  var gradient = [
-  'rgba(0, 255, 255, 0)',
-  'rgba(0, 255, 255, 1)',
-  'rgba(0, 191, 255, 1)',
-  'rgba(0, 127, 255, 1)',
-  'rgba(0, 63, 255, 1)',
-  'rgba(0, 0, 255, 1)',
-  'rgba(0, 0, 223, 1)',
-  'rgba(0, 0, 191, 1)',
-  'rgba(0, 0, 159, 1)',
-  'rgba(0, 0, 127, 1)',
-  'rgba(63, 0, 91, 1)',
-  'rgba(127, 0, 63, 1)',
-  'rgba(191, 0, 31, 1)',
-  'rgba(255, 0, 0, 1)'
-  ]
-  heatmap.set('gradient', heatmap.get('gradient') ? null : gradient);
-}
-
-function changeRadius() {
-  heatmap.set('radius', heatmap.get('radius') ? null : 20);
-}
-
-function changeOpacity() {
-  heatmap.set('opacity', heatmap.get('opacity') ? null : 0.2);
-}      
 
 //CONFIGURACAO HEATMAP - LatLng
 /* Data points defined as an array of LatLng objects */
@@ -315,53 +344,55 @@ function heatmapData(){
   ];
 }
 
-      //   // Create a <script> tag and set the USGS URL as the source.
-      //   var script = document.createElement('script');
-      //   // This example uses a local copy of the GeoJSON stored at
-      //   // http://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/2.5_week.geojsonp
-      //   script.src = 'callback.js';
-      //   document.getElementsByTagName('head')[0].appendChild(script);
-      // }
-      // // Loop through the results array and place a marker for each
-      // // set of coordinates.
-      // window.eqfeed_callback = function(results) {
-      //   for (var i = 0; i < results.features.length; i++) {
-      //     var coords = results.features[i].geometry.coordinates;
-      //     var latLng = new google.maps.LatLng(coords[1],coords[0]);
-      //     var marker = new google.maps.Marker({
-      //       position: latLng,
-      //       map: map,
-      //       icon: 'http://maps.google.com/mapfiles/ms/icons/green-dot.png'
-      //     });          
-      //  }
-
-
-  // var beachMarker = new google.maps.Marker({
-  //   position: {lat: -33.890, lng: 151.274},
-  //   map: map,
-  //   icon: 'http://maps.google.com/mapfiles/ms/icons/green-dot.png'
-  // });
-  //   var beachMarker = new google.maps.Marker({
-  //   position: {lat: -33.890, lng: 151.274},
-  //   map: map,
-  //   icon: 'http://maps.google.com/mapfiles/ms/icons/green-dot.png'
-  // });
-
-  // marker.setIcon('http://maps.google.com/mapfiles/ms/icons/blue-dot.png');
-
 $(document).ready(function() {
   var x = false;
   $("#AnimalMorto").on('click', function() {
     if (!x) {
-      $(".ocultaMarcador").trigger('click');
+      $(".ocultaMarcadorvermelho").trigger('click');
       x = true;
     } else {
-      $(".mostraMarcador").trigger('click');
+      $(".mostraMarcadorvermelho").trigger('click');
       x = false;
     }
   });
-});
+  $("#Enchente").on('click', function() {
+    if (!x) {
+      $(".ocultaMarcadorazul").trigger('click');
+      x = true;
+    } else {
+      $(".mostraMarcadorazul").trigger('click');
+      x = false;
+    }
+  });
+  $("#QuedadeArvore").on('click', function() {
+    if (!x) {
+      $(".ocultaMarcadorverde").trigger('click');
+      x = true;
+    } else {
+      $(".mostraMarcadorverde").trigger('click');
+      x = false;
+    }    
+  });
+  $("#Queima").on('click', function() {
+    if (!x) {
+      $(".ocultaMarcadoramarelo").trigger('click');
+      x = true;
+    } else {
+      $(".mostraMarcadoramarelo").trigger('click');
+      x = false;
+    }
+  });
+  $("#Vazamento").on('click', function() {
+    if (!x) {
+      $(".ocultaMarcadorroxo").trigger('click');
+      x = true;
+    } else {
+      $(".mostraMarcadorroxo").trigger('click');
+      x = false;
+    }
+  });
 
+});
   </script>
   <script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js">
   </script>
