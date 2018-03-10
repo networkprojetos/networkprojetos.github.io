@@ -56,7 +56,7 @@
     </head>
     <body>
       <div id="map"></div>
-      <div id="legend"style="z-index: 0; position: absolute; bottom: 127px; right: 0px;"><h3>Legenda</h3></div>
+      <div id="legend"><h3>Legenda</h3></div>
 <!-- 
       <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCaJxFyke87l3sHBTsjsFu3yCKhmYbs-zQ&callback=initMap"async defer></script> 
     -->
@@ -165,8 +165,8 @@ var contentString = [];
 for(var i = 0; i < markers.length; i++){
   contentString[i] =
 // "<span style='left:5%;border-radius:25px;background-color:red;color:white;'><i class='fa fa-exclamation-triangle' aria-hidden='true'></i></span>"+
-"<span style='display:block;margin-bottom:5%;' class='espaco' style='font-size:110%;'><b>Prioridade:</b> "+obj.vetor[i].fruta+
-"</span><span style='display:block;margin-bottom:5%;' class='espaco'><b>Tipo:</b> "+obj.vetor[i].sobre+
+"<span style='display:block;margin-bottom:5%;' class='espaco' style='font-size:110%;'><b>Fruta:</b> "+obj.vetor[i].fruta+
+"</span><span style='display:block;margin-bottom:5%;' class='espaco'><b>Sobre:</b> "+obj.vetor[i].sobre+
 "</span><span style='display:block;margin-bottom:5%;' class='data'><b>Data:</b> "+obj.vetor[i].data+
 "</span>";
 infowindow[i] = new google.maps.InfoWindow({
