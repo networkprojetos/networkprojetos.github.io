@@ -19,5 +19,4 @@ obj = {
 {"id":"17","nivel":"1","fruta":"maçã","latitude":"-22.82966026","longitude":"-43.13238442","sobre":"Fruta que da no meio do ano","data":"18/02/2018"},
 {"id":"18","nivel":"2","fruta":"abacate","latitude":"-22.70303042","longitude":"-43.05891335","sobre":"Fruta que da no meio do ano","data":"18/02/2018"},
 {"id":"19","nivel":"3","fruta":"melancia","latitude":"-22.66882025","longitude":"-43.24911415","sobre":"Fruta que da no meio do ano","data":"18/02/2018"},
-// {"id":"20","nivel":"4","fruta":"tangerina","status":"Finalizando","latitude":"-22.75053038","longitude":"-43.27040016","sobre":"Fruta que geralmente da no fim do ano","data":"18/02/2018","momento":"Novo"}
 ]}
