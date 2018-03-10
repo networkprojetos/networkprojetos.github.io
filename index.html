@@ -7,9 +7,9 @@
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
 
-  <link rel="stylesheet" href="bootstrap.min.css">
-  <link rel="stylesheet" href="bootstrap.css">  
-  <link rel="stylesheet" href="font-awesome.min.css">
+  <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
+  <link rel="stylesheet" href="bootstrap/css/bootstrap.css">  
+  <link rel="stylesheet" href="fontawesome/css/font-awesome.min.css">
 
   <style>
       /* Always set the map height explicitly to define the size of the div
@@ -55,41 +55,25 @@
       </style>
     </head>
     <body>
-    
-    <div id="floating-panel" class="hidden">
-      <input type="button" value="ancient button = 1" class="ocultaMarcadorvermelho hidden"></input>
-      <input type="button" value="ancient button= 0" class="mostraMarcadorvermelho hidden"></input>
-      <input type="button" value="ancient button = 1" class="ocultaMarcadorazul hidden"></input>
-      <input type="button" value="ancient button= 0" class="mostraMarcadorazul hidden"></input>
-      <input type="button" value="ancient button = 1" class="ocultaMarcadorverde hidden"></input>
-      <input type="button" value="ancient button= 0" class="mostraMarcadorverde hidden"></input>
-      <input type="button" value="ancient button = 1" class="ocultaMarcadoramarelo hidden"></input>
-      <input type="button" value="ancient button= 0" class="mostraMarcadoramarelo hidden"></input>
-      <input type="button" value="ancient button = 1" class="ocultaMarcadorroxo hidden"></input>
-      <input type="button" value="ancient button= 0" class="mostraMarcadorroxo hidden"></input>
-
-    </div>   
       <div id="map"></div>
       <div id="legend"><h3>Legenda</h3></div>
 <!-- 
       <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCaJxFyke87l3sHBTsjsFu3yCKhmYbs-zQ&callback=initMap"async defer></script> 
     -->
-    <script src="jquery.min.js"></script>
+    <script src="lib/cliptwo/vendor/jquery/jquery.min.js"></script>
+    <script src="lib/cliptwo/vendor/bootstrap/js/bootstrap.min.js"></script>
+    <script src="lib/cliptwo/vendor/bootstrap/js/bootstrap.js"></script>
 
     <script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js"></script>
-    <script src="data.json"></script>
+    <script src="datapoints.json"></script>
     <script>
-alert("Não importa a cor do gato, o que importa é que ele caçe os ratos. Deng Xiao-ping");
-alert("A explicação estará no README.");
+var amarelo = 0;
+var azul = 0;
+var vermelho = 0;
+var verde = 0;
+var roxo = 0;
 
-var Queima = 0;
-var Enchente = 0;
-var Animal = 0;
-var Queda = 0;
-var Vazamento = 0;
-
-var map, heatmap;
-var historicalOverlay;
+var map;
 //COMECO FUNCAO   40.740, -74.18    -22.9068467,-43.1728965
 function initMap() {
   map = new google.maps.Map(document.getElementById('map'), {
@@ -98,66 +82,68 @@ function initMap() {
       mapTypeId: 'hybrid'//hybrid, roadmap - os melhores
     });
 
-//CONFIGURACAO MARK PERSONALIZADO
-// var alias[];
 var features = [];
 var alias = [];
+
 for(var i = 0; i < obj.vetor.length; i++){
-  if(obj.vetor[i].ocorrencia=='Queima'){var tipoMarcador = 'amarelo'; Queima+=1;}
-    if(obj.vetor[i].ocorrencia=='Enchente'){var tipoMarcador = 'azul'; Enchente+=1;}
-      if(obj.vetor[i].ocorrencia=='Animal Morto'){var tipoMarcador = 'vermelho'; Animal+=1;}
-        if(obj.vetor[i].ocorrencia=='Queda de arvore'){var tipoMarcador = 'verde'; Queda+=1;}
-          if(obj.vetor[i].ocorrencia=='Vazamento'){var tipoMarcador = 'roxo'; Vazamento+=1;}
+  //PROCESSO DE CONTAGEM DOS CASOS
+  if(obj.vetor[i].fruta=='banana'){var tipoMarcador = 'amarelo'; amarelo+=1;}
+  if(obj.vetor[i].fruta=='abacate'){var tipoMarcador = 'azul'; azul+=1;}
+  if(obj.vetor[i].fruta=='maçã'){var tipoMarcador = 'vermelho'; vermelho+=1;}
+  if(obj.vetor[i].fruta=='melancia'){var tipoMarcador = 'verde'; verde+=1;}
+  if(obj.vetor[i].fruta=='tangerina'){var tipoMarcador = 'roxo'; roxo+=1;}
+  //FIM PROCESSO DE CONTAGEM
 
-            features.push({position: new google.maps.LatLng(obj.vetor[i].latitude, obj.vetor[i].longitude),type: tipoMarcador},);       
-          alias[i] = obj.vetor[i].ocorrencia;
-        alias[i] = alias[i].replace(/[\s-]/g, '');//Sem espaço
-        alias[i] = alias[i].toLowerCase();//Sem maiusculos
-        alias[i] = alias[i].replace(/[ÀÁÂÃÄÅ]/g,"A");
-        alias[i] = alias[i].replace(/[àáâãäå]/g,"a");
-        alias[i] = alias[i].replace(/[ÈÉÊË]/g,"E");
-        alias[i] = alias[i].replace(/[èéêë]/g,"e");     
-        alias[i] = alias[i].replace(/[^a-z0-9--]/gi, '');//Apenas letras e numros
-        // console.log(alias[i]);
-
-      }
+  //FORMATANDO TEXTO DO INFOWINDOW
+  features.push({position: new google.maps.LatLng(obj.vetor[i].latitude, obj.vetor[i].longitude),type: tipoMarcador},);       
+  alias[i] = obj.vetor[i].fruta;
+  alias[i] = alias[i].replace(/[\s-]/g, '');//Sem espaço
+  alias[i] = alias[i].toLowerCase();//Sem maiusculos
+  alias[i] = alias[i].replace(/[ÀÁÂÃÄÅ]/g,"A");
+  alias[i] = alias[i].replace(/[àáâãäå]/g,"a");
+  alias[i] = alias[i].replace(/[ÈÉÊË]/g,"E");
+  alias[i] = alias[i].replace(/[èéêë]/g,"e");     
+  alias[i] = alias[i].replace(/[^a-z0-9--]/gi, '');//Apenas letras e numros
+  //FIM FORMATAÇÃO
+}
 
 //CONFIGURACAO PERSONALIZACAO DO MARK
 var iconBase = 'http://maps.google.com/mapfiles/ms/icons/';
 var icons = {
   vermelho: {
-    name: 'AnimalMorto',
+    name: 'pontovermelho',
     icon: iconBase + 'red-dot.png',
-    nameinlegend: 'Animal Morto',
-    numero: Animal
+    nameinlegend: 'Maçã',
+    numero: vermelho
   },
   azul: {
-    name: 'Enchente',
+    name: 'pontoazul',
     icon: iconBase + 'blue-dot.png',
-    nameinlegend: 'Enchente',
-    numero: Enchente
+    nameinlegend: 'Abacate',
+    numero: azul
   },
   verde: {
-    name: 'QuedadeArvore',
+    name: 'pontoverde',
     icon: iconBase + 'green-dot.png',
-    nameinlegend: 'Queda de Arvore',
-    numero: Queda
+    nameinlegend: 'Melancia',
+    numero: verde
   },
   amarelo: {
-    name: 'Queima',
+    name: 'pontoamarelo',
     icon: iconBase + 'yellow-dot.png',
-    nameinlegend: 'Queima',
-    numero: Queima
+    nameinlegend: 'Banana',
+    numero: amarelo
   },
   roxo: {
-    name: 'Vazamento',
+    name: 'pontoroxo',
     icon: iconBase + 'purple-dot.png',
-    nameinlegend: 'Vazamento',
-    numero: Vazamento
+    nameinlegend: 'Tangerina',
+    numero: roxo
   }          
 };
+//FIM CONFIGURACAO PERSONALIZACAO DO MARK
 
-// Create markers.
+// CREATE MARKERS - para fazer dos markers elementos do markercluster(conjunto).
 var markers = [];
 features.forEach(function(feature) {
   var marker = new google.maps.Marker({
@@ -167,37 +153,20 @@ features.forEach(function(feature) {
   });
   markers.push(marker);
 });
+//FIM CREATE MARKERS.
 
+//DECLARO A VARIAVEL QUE DARÁ ORIGEM AS MARKERCLUSTER
 var markerCluster = new MarkerClusterer(map, markers, {imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'});
-
-var prioridade1 = "<span style='color: red'><i class='fa fa-circle' aria-hidden='true'></i>&nbsp;&nbsp;<i class='fa fa-circle' aria-hidden='true'></i>&nbsp;&nbsp;<i class='fa fa-circle' aria-hidden='true'></i>&nbsp;&nbsp;<i class='fa fa-circle' aria-hidden='true'></i></span>";
-var prioridade2 = "<span style='color: rgba(255,64,0,1);'><i class='fa fa-circle' aria-hidden='true'></i>&nbsp;&nbsp;<i class='fa fa-circle' aria-hidden='true'></i>&nbsp;&nbsp;<i class='fa fa-circle' aria-hidden='true'></i></span>&nbsp;&nbsp;<span style='color: rgba(255,64,0,0.5);'><i class='fa fa-circle' aria-hidden='true'></i></span>";
-var prioridade3 = "<span style='color: rgba(255,255,0,1);'><i class='fa fa-circle' aria-hidden='true'></i>&nbsp;&nbsp;<i class='fa fa-circle' aria-hidden='true'></i></span>&nbsp;&nbsp;<span style='color: rgba(255,255,0,0.5);'><i class='fa fa-circle' aria-hidden='true'></i>&nbsp;&nbsp;<i class='fa fa-circle' aria-hidden='true'></i></span>";
-var prioridade4 = "<span style='color: rgba(4,180,4,1);'><i class='fa fa-circle' aria-hidden='true'></i></span>&nbsp;&nbsp;<span style='color: rgba(4,180,4,0.5);'><i class='fa fa-circle' aria-hidden='true'></i>&nbsp;&nbsp;<i class='fa fa-circle' aria-hidden='true'></i>&nbsp;&nbsp;<i class='fa fa-circle' aria-hidden='true'></i></span>";
-
-var status1 = "<span style='border-radius:25px;background-color:#00BFFF;color:white;border-color:#00BFFF;font-weight:500;'>&nbsp;&nbsp;Em Andamento&nbsp;&nbsp;</span>";
-var status2 = "<span style='border-radius:25px;background-color:#04B431;color:white;border-color:#04B431;font-weight:500;'>&nbsp;&nbsp;&nbsp;Finalizando&nbsp;&nbsp;&nbsp;</span>";
-var status3 = "<span style='border-radius:25px;background-color:#FFBF00;color:white;border-color:#FFBF00;font-weight:500;'>&nbsp;&nbsp;&nbsp;Aguardando&nbsp;&nbsp;&nbsp;</span>";
+//FIM DECLARO A VARIAVEL QUE DARÁ ORIGEM AS MARKERCLUSTER
 
 var infowindow = [];
 var contentString = [];
+//CONFIGURAÇÃO DO QUE APARECE EM CADA INFOWINDOW
 for(var i = 0; i < markers.length; i++){
-
-  if(obj.vetor[i].nivel==1){var prioridadeResultado=prioridade1;}
-  if(obj.vetor[i].nivel==2){var prioridadeResultado=prioridade2;}
-  if(obj.vetor[i].nivel==3){var prioridadeResultado=prioridade3;}
-  if(obj.vetor[i].nivel==4){var prioridadeResultado=prioridade4;}
-
-  if(obj.vetor[i].status=='Em Andamento'){var statusResultado=status1;}
-  if(obj.vetor[i].status=='Finalizando'){var statusResultado=status2;}
-  if(obj.vetor[i].status=='Aguardando'){var statusResultado=status3;}
-
   contentString[i] =
 // "<span style='left:5%;border-radius:25px;background-color:red;color:white;'><i class='fa fa-exclamation-triangle' aria-hidden='true'></i></span>"+
-"<span style='display:block;margin-bottom:5%;' class='espaco' style='font-size:110%;'><b>Prioridade:</b> "+prioridadeResultado+
-"</span><span style='display:block;margin-bottom:5%;' class='espaco'><b>Tipo:</b> "+obj.vetor[i].ocorrencia+
-"</span><span style='display:block;margin-bottom:5%;' class='espaco'><b>Situação:</b> "+obj.vetor[i].relevancia+
-"</span><span style='display:block;margin-bottom:5%;' class='espaco'><b>Status:</b> "+statusResultado+
+"<span style='display:block;margin-bottom:5%;' class='espaco' style='font-size:110%;'><b>Prioridade:</b> "+obj.vetor[i].fruta+
+"</span><span style='display:block;margin-bottom:5%;' class='espaco'><b>Tipo:</b> "+obj.vetor[i].sobre+
 "</span><span style='display:block;margin-bottom:5%;' class='data'><b>Data:</b> "+obj.vetor[i].data+
 "</span>";
 infowindow[i] = new google.maps.InfoWindow({
@@ -205,97 +174,18 @@ infowindow[i] = new google.maps.InfoWindow({
 });
 laco(i);
 }
+//FIM CONFIGURAÇÃO DO QUE APARECE EM CADA INFOWINDOW
 
-$( ".ocultaMarcadorvermelho" ).click(function() {
-for (var i=0;i<markers.length;i++) {
-  if (obj.vetor[i].ocorrencia=='Animal Morto')  {
-    markers[i].setVisible(false);
-    // alert(obj.vetor[i-1].id);
-  }
-}
-});
-$( ".mostraMarcadorvermelho" ).click(function() {
-for (var i=0;i<markers.length;i++) {
-  if (obj.vetor[i].ocorrencia=='Animal Morto')  {
-    markers[i].setVisible(true);
-    // alert(obj.markers[i-1]);
-  }
-}
-});
-$( ".ocultaMarcadorazul" ).click(function() {
-for (var i=0;i<markers.length;i++) {
-  if (obj.vetor[i].ocorrencia=='Enchente')  {
-    markers[i].setVisible(false);
-    // alert(obj.vetor[i-1].id);
-  }
-}
-});
-$( ".mostraMarcadorazul" ).click(function() {
-for (var i=0;i<markers.length;i++) {
-  if (obj.vetor[i].ocorrencia=='Enchente')  {
-    markers[i].setVisible(true);
-    // alert(obj.markers[i-1]);
-  }
-}
-});
-$( ".ocultaMarcadorverde" ).click(function() {
-for (var i=0;i<markers.length;i++) {
-  if (obj.vetor[i].ocorrencia=='Queda de arvore')  {
-    markers[i].setVisible(false);
-    // alert(obj.vetor[i-1].id);
-  }
-}
-});
-$( ".mostraMarcadorverde" ).click(function() {
-for (var i=0;i<markers.length;i++) {
-  if (obj.vetor[i].ocorrencia=='Queda de arvore')  {
-    markers[i].setVisible(true);
-    // alert(obj.markers[i-1]);
-  }
-}
-});
-$( ".ocultaMarcadoramarelo" ).click(function() {
-for (var i=0;i<markers.length;i++) {
-  if (obj.vetor[i].ocorrencia=='Queima')  {
-    markers[i].setVisible(false);
-    // alert(obj.vetor[i-1].id);
-  }
-}
-});
-$( ".mostraMarcadoramarelo" ).click(function() {
-for (var i=0;i<markers.length;i++) {
-  if (obj.vetor[i].ocorrencia=='Queima')  {
-    markers[i].setVisible(true);
-    // alert(obj.markers[i-1]);
-  }
-}
-});
-$( ".ocultaMarcadorroxo" ).click(function() {
-for (var i=0;i<markers.length;i++) {
-  if (obj.vetor[i].ocorrencia=='Vazamento')  {
-    markers[i].setVisible(false);
-    // alert(obj.vetor[i-1].id);
-  }
-}
-});
-$( ".mostraMarcadorroxo" ).click(function() {
-for (var i=0;i<markers.length;i++) {
-  if (obj.vetor[i].ocorrencia=='Vazamento')  {
-    markers[i].setVisible(true);
-    // alert(obj.markers[i-1]);
-  }
-}
-});
-
-
+//ESTA FUNÇÃO É DA ESTRUTURA DO INFOWINDOW DE CADA MARKER
 function laco(n){
   markers[n].addListener('click', function() {
     infowindow[n].open(map, markers[n]);
     // alert(n);
   });  
 }
+//FIM FUNÇÃO É DA ESTRUTURA DO INFOWINDOW DE CADA MARKER
 
-
+//CONFIGURAÇÃO DO QUE APARECE NA LEGENDA
 var legend = document.getElementById('legend');
 for (var key in icons) {
   var type = icons[key];
@@ -307,93 +197,10 @@ for (var key in icons) {
   div.innerHTML = '<img id="'+name+'" src="' + icon + '"> ' + nameinlegend + ' - ' + numero + '<br><br>';
   legend.appendChild(div);
 }
-
 map.controls[google.maps.ControlPosition.RIGHT_BOTTOM].push(legend);
-// markers.push(marker);
-
-
+//FIM CONFIGURAÇÃO DO QUE APARECE NA LEGENDA
 }
 //FIM FUNCAO
-//CONFIGURACAO HEATMAP CONFIGURANDO
-
-//CONFIGURACAO HEATMAP - LatLng
-/* Data points defined as an array of LatLng objects */
-function heatmapData(){
-  return [
-  // {location: new google.maps.LatLng(-22.9068467, -43.1728965), weight: 3},
-  new google.maps.LatLng(-22.9068467, -43.1728965), 
-  new google.maps.LatLng(-22.7638274, -43.45442116),
-  new google.maps.LatLng(-22.88280973, -43.42146217),
-  new google.maps.LatLng(-22.6954289, -43.23744118),
-  new google.maps.LatLng(-22.68402583, -43.46540749),
-  new google.maps.LatLng(-22.65614765, -43.02183449),
-  new google.maps.LatLng(-22.91665804, -43.19824219),
-  new google.maps.LatLng(-22.90274343, -43.08151245),
-  new google.maps.LatLng(-22.84960176, -43.08151245),
-  new google.maps.LatLng(-22.7951733, -43.19274902),
-
-  new google.maps.LatLng(-22.99663134, -43.17152321),
-  new google.maps.LatLng(-22.9175987, -42.81446754),
-  new google.maps.LatLng(-23.00674418, -43.28550636),
-  new google.maps.LatLng(-22.99726341, -43.36790382),
-  new google.maps.LatLng(-22.96565605, -43.39399635),
-  new google.maps.LatLng(-22.89040081, -43.11659157),
-  new google.maps.LatLng(-22.82966026, -43.13238442),
-  new google.maps.LatLng(-22.70303042, -43.05891335),
-  new google.maps.LatLng(-22.66882025, -43.24911415),
-  new google.maps.LatLng(-22.75053038, -43.27040016)
-  ];
-}
-
-$(document).ready(function() {
-  var x = false;
-  $("#AnimalMorto").on('click', function() {
-    if (!x) {
-      $(".ocultaMarcadorvermelho").trigger('click');
-      x = true;
-    } else {
-      $(".mostraMarcadorvermelho").trigger('click');
-      x = false;
-    }
-  });
-  $("#Enchente").on('click', function() {
-    if (!x) {
-      $(".ocultaMarcadorazul").trigger('click');
-      x = true;
-    } else {
-      $(".mostraMarcadorazul").trigger('click');
-      x = false;
-    }
-  });
-  $("#QuedadeArvore").on('click', function() {
-    if (!x) {
-      $(".ocultaMarcadorverde").trigger('click');
-      x = true;
-    } else {
-      $(".mostraMarcadorverde").trigger('click');
-      x = false;
-    }    
-  });
-  $("#Queima").on('click', function() {
-    if (!x) {
-      $(".ocultaMarcadoramarelo").trigger('click');
-      x = true;
-    } else {
-      $(".mostraMarcadoramarelo").trigger('click');
-      x = false;
-    }
-  });
-  $("#Vazamento").on('click', function() {
-    if (!x) {
-      $(".ocultaMarcadorroxo").trigger('click');
-      x = true;
-    } else {
-      $(".mostraMarcadorroxo").trigger('click');
-      x = false;
-    }
-  });
-
-});
   </script>
   <script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js">
   </script>
