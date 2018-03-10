@@ -1,2 +1,2 @@
-# https://streetfruit.github.io/
+# https://streetfruit.io/
 Meu projeto pessoal
