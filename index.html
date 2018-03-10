@@ -74,7 +74,7 @@ var verde = 0;
 var roxo = 0;
 
 var map;
-//COMECO FUNCAO   40.740, -74.18    -22.9068467,-43.1728965
+//Start of the map function
 function initMap() {
   map = new google.maps.Map(document.getElementById('map'), {
     zoom: 9,
@@ -86,15 +86,15 @@ var features = [];
 var alias = [];
 
 for(var i = 0; i < obj.vetor.length; i++){
-  //PROCESSO DE CONTAGEM DOS CASOS
+  //Score's fruits process
   if(obj.vetor[i].fruta=='banana'){var tipoMarcador = 'amarelo'; amarelo+=1;}
   if(obj.vetor[i].fruta=='abacate'){var tipoMarcador = 'azul'; azul+=1;}
   if(obj.vetor[i].fruta=='maçã'){var tipoMarcador = 'vermelho'; vermelho+=1;}
   if(obj.vetor[i].fruta=='melancia'){var tipoMarcador = 'verde'; verde+=1;}
   if(obj.vetor[i].fruta=='tangerina'){var tipoMarcador = 'roxo'; roxo+=1;}
-  //FIM PROCESSO DE CONTAGEM
+  //End of the Score's fruits process
 
-  //FORMATANDO TEXTO DO INFOWINDOW
+  //Formating text of infowindow
   features.push({position: new google.maps.LatLng(obj.vetor[i].latitude, obj.vetor[i].longitude),type: tipoMarcador},);       
   alias[i] = obj.vetor[i].fruta;
   alias[i] = alias[i].replace(/[\s-]/g, '');//Sem espaço
@@ -104,10 +104,10 @@ for(var i = 0; i < obj.vetor.length; i++){
   alias[i] = alias[i].replace(/[ÈÉÊË]/g,"E");
   alias[i] = alias[i].replace(/[èéêë]/g,"e");     
   alias[i] = alias[i].replace(/[^a-z0-9--]/gi, '');//Apenas letras e numros
-  //FIM FORMATAÇÃO
+  //End of formatation
 }
 
-//CONFIGURACAO PERSONALIZACAO DO MARK
+//Config of personalization of marks - styling
 var iconBase = 'http://maps.google.com/mapfiles/ms/icons/';
 var icons = {
   vermelho: {
@@ -141,9 +141,9 @@ var icons = {
     numero: roxo
   }          
 };
-//FIM CONFIGURACAO PERSONALIZACAO DO MARK
+//End config of personalization
 
-// CREATE MARKERS - para fazer dos markers elementos do markercluster(conjunto).
+//To do elements markers of markercluster
 var markers = [];
 features.forEach(function(feature) {
   var marker = new google.maps.Marker({
@@ -153,20 +153,19 @@ features.forEach(function(feature) {
   });
   markers.push(marker);
 });
-//FIM CREATE MARKERS.
+//End CREATE MARKERS.
 
-//DECLARO A VARIAVEL QUE DARÁ ORIGEM AS MARKERCLUSTER
+//I Declare the variable that will give start to Markcluster
 var markerCluster = new MarkerClusterer(map, markers, {imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'});
-//FIM DECLARO A VARIAVEL QUE DARÁ ORIGEM AS MARKERCLUSTER
+//End
 
 var infowindow = [];
 var contentString = [];
-//CONFIGURAÇÃO DO QUE APARECE EM CADA INFOWINDOW
+//Config of what show in each infowindow
 for(var i = 0; i < markers.length; i++){
   contentString[i] =
-// "<span style='left:5%;border-radius:25px;background-color:red;color:white;'><i class='fa fa-exclamation-triangle' aria-hidden='true'></i></span>"+
-"<span style='display:block;margin-bottom:5%;' class='espaco' style='font-size:110%;'><b>Fruta:</b> "+obj.vetor[i].fruta+
-"</span><span style='display:block;margin-bottom:5%;' class='espaco'><b>Sobre:</b> "+obj.vetor[i].sobre+
+"<span style='display:block;margin-bottom:5%;' class='espaco' style='font-size:110%;'><b>Prioridade:</b> "+obj.vetor[i].fruta+
+"</span><span style='display:block;margin-bottom:5%;' class='espaco'><b>Tipo:</b> "+obj.vetor[i].sobre+
 "</span><span style='display:block;margin-bottom:5%;' class='data'><b>Data:</b> "+obj.vetor[i].data+
 "</span>";
 infowindow[i] = new google.maps.InfoWindow({
@@ -174,18 +173,18 @@ infowindow[i] = new google.maps.InfoWindow({
 });
 laco(i);
 }
-//FIM CONFIGURAÇÃO DO QUE APARECE EM CADA INFOWINDOW
-
-//ESTA FUNÇÃO É DA ESTRUTURA DO INFOWINDOW DE CADA MARKER
+//End Config of what show in each infowindow
+ 
+//This function is of structure of infowindow to click on the markers
 function laco(n){
   markers[n].addListener('click', function() {
     infowindow[n].open(map, markers[n]);
     // alert(n);
   });  
 }
-//FIM FUNÇÃO É DA ESTRUTURA DO INFOWINDOW DE CADA MARKER
+//End This function is of structure of infowindow to click on the markers
 
-//CONFIGURAÇÃO DO QUE APARECE NA LEGENDA
+//Config of what show in legend
 var legend = document.getElementById('legend');
 for (var key in icons) {
   var type = icons[key];
@@ -198,9 +197,9 @@ for (var key in icons) {
   legend.appendChild(div);
 }
 map.controls[google.maps.ControlPosition.LEFT_BOTTOM].push(legend);
-//FIM CONFIGURAÇÃO DO QUE APARECE NA LEGENDA
+//End Config of what show in legend
 }
-//FIM FUNCAO
+//End funtion
   </script>
   <script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js">
   </script>
