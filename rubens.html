@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>smart-e-book</title>
+  <link rel="stylesheet" type="text/css" href="lib/bootstrap/css/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="lib/bootstrap/css/bootstrap.min.css">
+  <link rel="stylesheet" type="text/css" href="lib/css/styles.css">
+  <link rel="stylesheet" type="text/css" href="lib/font-awesome/css/font-awesome.css">
+  <link rel="stylesheet" href="lib/font-awesome/css/font-awesome.min.css">
+  <link rel="stylesheet" href="lib/chat.css" />
+
+  <link rel="stylesheet" href="lib/bootstrap-select/css/bootstrap-select.css">
+  <style>
+.timeline {
+    list-style: none;
+    padding: 20px 0 20px;
+    position: relative;
+    overflow-y: scroll;
+    height: 380px;    
+}
+
+    .timeline:before {
+        top: 0;
+        bottom: 0;
+        position: absolute;
+        content: " ";
+        width: 3px;
+        background-color: #eeeeee;
+        left: 50%;
+        margin-left: -1.5px;
+    }
+
+    .timeline > li {
+        margin-bottom: 20px;
+        position: relative;
+    }
+
+        .timeline > li:before,
+        .timeline > li:after {
+            content: " ";
+            display: table;
+        }
+
+        .timeline > li:after {
+            clear: both;
+        }
+
+        .timeline > li:before,
+        .timeline > li:after {
+            content: " ";
+            display: table;
+        }
+
+        .timeline > li:after {
+            clear: both;
+        }
+
+        .timeline > li > .timeline-panel {
+            width: 46%;
+            float: left;
+            border: 1px solid #d4d4d4;
+            border-radius: 2px;
+            padding: 20px;
+            position: relative;
+            -webkit-box-shadow: 0 1px 6px rgba(0, 0, 0, 0.175);
+            box-shadow: 0 1px 6px rgba(0, 0, 0, 0.175);
+        }
+
+            .timeline > li > .timeline-panel:before {
+                position: absolute;
+                top: 26px;
+                right: -15px;
+                display: inline-block;
+                border-top: 15px solid transparent;
+                border-left: 15px solid #ccc;
+                border-right: 0 solid #ccc;
+                border-bottom: 15px solid transparent;
+                content: " ";
+            }
+
+            .timeline > li > .timeline-panel:after {
+                position: absolute;
+                top: 27px;
+                right: -14px;
+                display: inline-block;
+                border-top: 14px solid transparent;
+                border-left: 14px solid #fff;
+                border-right: 0 solid #fff;
+                border-bottom: 14px solid transparent;
+                content: " ";
+            }
+
+        .timeline > li > .timeline-badge {
+            color: #fff;
+            width: 50px;
+            height: 50px;
+            line-height: 50px;
+            font-size: 1.4em;
+            text-align: center;
+            position: absolute;
+            top: 16px;
+            left: 50%;
+            margin-left: -25px;
+            background-color: #999999;
+            z-index: 100;
+            border-top-right-radius: 50%;
+            border-top-left-radius: 50%;
+            border-bottom-right-radius: 50%;
+            border-bottom-left-radius: 50%;
+        }
+
+        .timeline > li.timeline-inverted > .timeline-panel {
+            float: right;
+        }
+
+            .timeline > li.timeline-inverted > .timeline-panel:before {
+                border-left-width: 0;
+                border-right-width: 15px;
+                left: -15px;
+                right: auto;
+            }
+
+            .timeline > li.timeline-inverted > .timeline-panel:after {
+                border-left-width: 0;
+                border-right-width: 14px;
+                left: -14px;
+                right: auto;
+            }
+
+.timeline-badge.primary {
+    background-color: #2e6da4 !important;
+}
+
+.timeline-badge.success {
+    background-color: #3f903f !important;
+}
+
+.timeline-badge.warning {
+    background-color: #f0ad4e !important;
+}
+
+.timeline-badge.danger {
+    background-color: #d9534f !important;
+}
+
+.timeline-badge.info {
+    background-color: #5bc0de !important;
+}
+
+.timeline-title {
+    margin-top: 0;
+    color: inherit;
+}
+
+.timeline-body > p,
+.timeline-body > ul {
+    margin-bottom: 0;
+}
+
+    .timeline-body > p + p {
+        margin-top: 5px;
+    }
+
+@media (max-width: 767px) {
+    ul.timeline:before {
+        left: 40px;
+    }
+
+    ul.timeline > li > .timeline-panel {
+        width: calc(100% - 90px);
+        width: -moz-calc(100% - 90px);
+        width: -webkit-calc(100% - 90px);
+    }
+
+    ul.timeline > li > .timeline-badge {
+        left: 15px;
+        margin-left: 0;
+        top: 16px;
+    }
+
+    ul.timeline > li > .timeline-panel {
+        float: right;
+    }
+
+        ul.timeline > li > .timeline-panel:before {
+            border-left-width: 0;
+            border-right-width: 15px;
+            left: -15px;
+            right: auto;
+        }
+
+        ul.timeline > li > .timeline-panel:after {
+            border-left-width: 0;
+            border-right-width: 14px;
+            left: -14px;
+            right: auto;
+        }
+}
+  </style>
+<script src="plus.js"></script>  
+</head>
+<body>
+
+<div class="container">
+    <div class="page-header">
+        <h1 id="timeline">Smart-E-Book = Interaja mais, Saiba mais</h1>
+    </div>
+    <ul class="timeline" id="conteudoMensagem">
+<!--         <li>
+          <div class="timeline-badge"><i class="fa fa-user-circle-o" aria-hidden="true"></i></div>
+          <div class="timeline-panel">
+            <div class="timeline-heading">
+              <h4 class="timeline-title">Usuário</h4>
+            </div>
+            <div class="timeline-body">
+              <p>Boa Noite, Como vai?</p>
+            </div>
+          </div>
+        </li> -->
+<!--         <li class="timeline-inverted">
+          <div class="timeline-badge warning"><i class="fa fa-book" aria-hidden="true"></i></div>
+          <div class="timeline-panel">
+            <div class="timeline-heading">
+              <h4 class="timeline-title">Flyn</h4>
+            </div>
+            <div class="timeline-body">
+              <p>Boa Noite, estou ótimo, e você?</p>
+            </div>
+          </div>
+        </li>    -->     
+    </ul>    
+</div>
+      <form action="" method="post" role="form" id="formDados" name="formDados" class="basic2 form-horizontal">
+          <!-- <textarea class="form-control" name="mensagem" id="mensagem"></textarea> -->
+              <select class="show-tick form-control input-lg input-lg basic2 uso" name="mensagem" id="mensagem" multiple>
+                <option>ola</option>
+                <option>oi</option>
+                <option>oie</option>
+                <option>tudo bem?</option>
+                <option>tudo bem voce?</option>
+                <option>tudo bem contigo?</option>
+                <option>oi, tudo bem contigo?</option>                
+                <option>estou bem</option>
+                <option>bem</option>
+                <option>vou indo</option>
+                <option>quem é voce?</option>
+                <option>quem te programou?</option>
+                <!-- <option>com que proposito foi programado?</option> -->
+                <option>qual é o nome da empresa dele?</option>
+                <option>qual foi o ramo de atividade dele para te programar?</option>
+                <option>com que proposito ele te programou?</option>
+                <option>obrigado pelas informações</option>
+
+                <option class="get-class" disabled>ox</option>
+              </select>            
+      </form>
+  <br>
+  <div class="form-row" style="z-index:2;">
+      <div class="col-md-1">
+          <a href="javascript:history.back()"><button type="button" class="btn btn-success pull-left bnt-lg" style="margin-right:15%;">Voltar</button></a>                                              
+      </div>
+      <div class="col-md-1 col-md-offset-10">        
+          <button type="button" class="btn btn-primary pull-right bnt-lg" onclick="addmensagem()">Enviar</button>
+      </div>
+  </div>      
+
+
+</body>
+<script src="lib/bootstrap/js/bootstrap.js"></script>
+<script src="lib/jquery.min.js"></script>
+<script src="lib/bootstrap.min.js"></script>
+<script src="lib/prefixfree.min.js"></script>
+
+<script src="lib/bootstrap-select/js/bootstrap-select.js"></script>
+
+<script type="text/javascript">
+for(banana=0;banana<=ask.length;banana++){
+  $(".uso").append('<option>'+ask[banana]+'</option>');
+}
+
+$('.basic2').selectpicker({
+  liveSearch: true,
+  maxOptions: 1,
+  size: 1
+});
+function interacaobot(conteudo){      
+      var conteudo = conteudo;      
+      var mensagem = conteudo.split(", ");
+      // if((mensagem[0]=="oi") && (mensagem[1]=="tudo bem?")){
+      //   conteudo = "tudo sim e cotigo?";
+      // }
+      console.log(mensagem[0]);
+      console.log(mensagem[1]);
+
+        // if( (mensagem[0] == "ola") || (mensagem[0] == "ola" && mensagem[1] == "tudo bem?") || (mensagem[0] == "ola" && mensagem[1] == "tudo bem com voce?") || (mensagem[0] == "ola" && mensagem[1] == "tudo bem contigo?")){
+          
+          // mensagem[0] == "oi" ||
+          // mensagem[0] == "oi" && mensagem[1] == "tudo bem?" || 
+          // mensagem[0] == "oi" && mensagem[1] == "tudo bem com voce?" ||
+          // mensagem[0] == "oi" && mensagem[1] == "tudo bem com contigo?" ||
+          
+          // mensagem[0] == "oie" ||
+          // mensagem[0] == "oie" && mensagem[1] == "tudo bem?" || 
+          // mensagem[0] == "oie" && mensagem[1] == "tudo bem com voce?" ||
+          // mensagem[0] == "oie" && mensagem[1] == "tudo bem com contigo?" ||
+          
+          // mensagem[0] == "tudo bem?" ||
+          // mensagem[0] == "tudo bem com voce?" ||
+          // mensagem[0] == "tudo bem com contigo?" 
+          var conteudo = "";
+for(banana=0;banana<=ask.length;banana++){
+  if(mensagem[0] == ask[banana]){conteudo += r[banana];}  
+}          
+
+          if(mensagem[0] == "ola"){conteudo += "ola";}          
+          if(mensagem[0] == "oi"){conteudo += "oi";}
+          if(mensagem[0] == "oie"){conteudo += "oie";}
+          if(mensagem[0] == "tudo bem?"){conteudo += "tudo sim e contigo?";}
+          if(mensagem[0] == "tudo bem voce?"){conteudo += "tudo sim e voce?";}
+          if(mensagem[0] == "tudo bem contigo?"){conteudo += "tudo sim e contigo?";}
+
+          if(mensagem[0] == "qual é o nome da empresa dele?"){conteudo += "Ele não tem empresa ainda";}          
+          if(mensagem[0] == "qual foi o ramo de atividade dele para te programar?"){conteudo += "Ele esboçou a ideia de meu funcionamento em um papel, para depois colocar a minha lógica de funcionamento  em uma linguagem de programação web";}
+          if(mensagem[0] == "com que proposito ele te programou?"){conteudo += "Ele pensou... “e se houvesse uma tecnologia para transmitir o conhecimento e ideias de grandes pensadores, como Einstein a coisas mínimas como o conhecimento de pequenos livros ou apostilas a biografia de meus avós, onde um chat seria o canal para a transmição.” onde ele teve a ideia de criar um chat onde há uma conversa com usuário, como eu e você atualmente, com cada dúvida programada para ser respondida.";}
+          if(mensagem[0] == "obrigado pelas informações"){conteudo += "Por nada, fui programado para isso, ;)";} 
+
+          if(mensagem[0] == "estou bem"){conteudo += "que bom";}
+          if(mensagem[0] == "bem"){conteudo += "ok^^";}
+          if(mensagem[0] == "vou indo"){conteudo += "legal";} 
+          if(mensagem[0] == "quem é voce?"){conteudo += "smart-e-book, um e-book inteligente de modo que saiba interagir com usuarios como você";}
+          if(mensagem[0] == "quem te programou?"){conteudo += "Willian Silva Mariano de Souza";}
+          if(mensagem[0] == "com que proposito foi programado?"){conteudo += "para o aumento das possibilidade de como aprendemos, de forma mais eficientee não linear";}          
+
+          if(mensagem[1] == "tudo bem?"){conteudo += ", tudo sim e contigo?";}
+          if(mensagem[1] == "tudo bem com voce?"){conteudo += ", tudo sim e voce?";}
+          if(mensagem[1] == "tudo bem contigo?"){conteudo += ", tudo sim e contigo?";}
+
+        // }else{conteudo = "error"}
+
+      // var appendOpcoes = '';
+      // appendOpcoes += '<option>ola</option>';
+      // appendOpcoes += '<option>oi</option>';
+      // appendOpcoes += '<option>oie</option>';
+      // appendOpcoes += '<option>tudo bem?</option>';
+      // appendOpcoes += '<option>tudo bem voce?</option>';
+      // appendOpcoes += '<option>tudo bem contigo?</option>';
+      // appendOpcoes += '<option>ola</option>';
+      // appendOpcoes += '<option>ola</option>';
+      // appendOpcoes += '<option>ola</option>';      
+      // $("#mensagem").append(appendOpcoes);     
+
+      var appendMensagem = '';
+      appendMensagem += '<li class="timeline-inverted">';
+      appendMensagem += '<div class="timeline-badge warning"><i class="fa fa-book" aria-hidden="true"></i></div>';
+      appendMensagem += '<div class="timeline-panel">';
+      appendMensagem += '<div class="timeline-heading">';
+      appendMensagem += '<h4 class="timeline-title">Flyn</h4>';
+      appendMensagem += '</div>';
+      appendMensagem += '<div class="timeline-body">';
+      appendMensagem += '<p>'+conteudo+'</p>';
+      appendMensagem += '</div>';
+      appendMensagem += '</div>';
+      appendMensagem += '</li>';
+
+      $("#conteudoMensagem").append(appendMensagem);
+      aaa();
+}
+
+function addmensagem(){
+      var appendMensagem = '';
+      // var conteudo = $("#mensagem").val();
+      var conteudo = document.getElementById("mensagem").value;
+      appendMensagem += '<li>';
+      appendMensagem += '<div class="timeline-badge"><i class="fa fa-user-circle-o" aria-hidden="true"></i></div>';
+      appendMensagem += '<div class="timeline-panel">';
+      appendMensagem += '<div class="timeline-heading">';
+      appendMensagem += '<h4 class="timeline-title">Usuário</h4>';
+      appendMensagem += '</div>';
+      appendMensagem += '<div class="timeline-body">';
+      appendMensagem += '<p>'+conteudo+'</p>';
+      appendMensagem += '</div>';
+      appendMensagem += '</div>';
+      appendMensagem += '</li>';
+
+      $("#conteudoMensagem").append(appendMensagem);
+      $("#mensagem").val(""); 
+
+      interacaobot(conteudo);  
+      aaa();         
+}
+
+var el = document.querySelector('.timeline');
+aaa();
+function aaa(){
+var height = el.scrollHeight;
+el.scrollTop = height;
+}
+
+// var string = [];
+// string[0] = 'hashirama';
+// string[1] = 'tobirama';
+// string[2] = 'sarutobi';
+// string[3] = 'minato';
+// console.log(string);
+
+</script>
+</html>
