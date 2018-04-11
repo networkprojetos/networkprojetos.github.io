@@ -1,5 +1,13 @@
+<!------ Include the above in your HEAD tag ---------->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-
+<link href="https://v4-alpha.getbootstrap.com/examples/navbars/navbar.css" rel="stylesheet">
+<link rel="canonical" href="https://getbootstrap.com/docs/4.0/examples/navbars/">
 <link href="bootstrap4.min.css" rel="stylesheet" id="bootstrap-css">
 <style type="text/css">
 @font-face {
@@ -7,19 +15,15 @@
   src: url("PlayfairDisplay-Black.otf");
 }
 </style>
-<!------ Include the above in your HEAD tag ---------->
-
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <!-- Navigation -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
       <div class="container">
         <a class="navbar-brand" style="font-family:padraoPessoal;">Willian Silva Mariano de Souza</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler botao_manual_resposividade " type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="true" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
-        <div class="collapse navbar-collapse" id="navbarResponsive">
+        <div class="collapse navbar-collapse menu_manual_resposividade" aria-expanded="true" id="navbarResponsive">
           <ul class="navbar-nav ml-auto">
             <li class="nav-item active">
               <a class="nav-link top" href="#" id="profile">PROFILE
@@ -50,17 +54,18 @@
       <div class="container">
       <img class="img-fluid d-block mx-auto" style="position:relative;float:left;border-radius: 50%;right:5%;width:135px;height:135px;" src="https://media.licdn.com/dms/image/C4E03AQH_YAP7QVVIwQ/profile-displayphoto-shrink_200_200/0?e=1528398000&v=beta&t=OIth7eqJiWqEozCYzmtQrd8lxEL9zgHNvY9VPGJ9sOc" alt="">        
         <h1>PROFILE</h1>
-        <p>Hi, I am Willian. I'm web development and learning arduino and design with Ilustrator. Besides code, I also program chatbot being it, my own IA system and API DialogFlow, and I know run APIs like Google Maps, Highcharts, TinyMCE, DataTable and frameworks like Bootstrap.</p>
-        <center><p style="font-size:200%;"><i class="fab fa-linkedin"></i>&nbsp;&nbsp;&nbsp;<i class="fab fa-codepen"></i>&nbsp;&nbsp;&nbsp;<i class="fab fa-github-alt"></i>&nbsp;&nbsp;&nbsp;<a href="https://api.whatsapp.com/send?phone=5511950874637"><i class="fab fa-whatsapp"></i></a></p></center>
+        <p>Hi, I am Willian. I'm web development and learning arduino and design with Ilustrator. Besides code, I also program chatbot which is, my own IA system and API DialogFlow. I know run APIs like Google Maps, Highcharts, TinyMCE, DataTable and frameworks like Bootstrap.</p>
+        <center><p style="font-size:200%;"><a href="https://www.linkedin.com/in/willian-silva-mariano-de-souza-55a262114/"><i class="fab fa-linkedin"></i></a>&nbsp;&nbsp;&nbsp;<a href="https://codepen.io/wilfi96/"><i class="fab fa-codepen"></i></a>&nbsp;&nbsp;&nbsp;<a href="https://github.com/networkprojetos/networkprojetos.github.io"><i class="fab fa-github-alt"></i></a>&nbsp;&nbsp;&nbsp;<a href="https://api.whatsapp.com/send?phone=5511981540944"><i class="fab fa-whatsapp"></i></a></p></center>
       </div>
     </section>
     <section class="py-5" id="contato" hidden>
-      <div class="container">
+      <center><div class="container">
         <h1>CONTACT</h1>
         <p><i class="fas fa-at"></i>&nbsp;&nbsp;&nbsp;williansmarianos@gmail.com</p>
         <p><i class="fab fa-whatsapp"></i>&nbsp;&nbsp;&nbsp;+55 11 94115-0619</p>
-        <p><i class="fas fa-phone"></i>&nbsp;&nbsp;&nbsp;+55 15 98104-5468</p>        
-      </div>
+        <p><i class="fas fa-phone"></i>&nbsp;&nbsp;&nbsp;+55 15 98104-5468</p>
+        <p><i class="fas fa-location-arrow"></i>&nbsp;&nbsp;&nbsp;Iperó/Narita Park</p>          
+      </div></center>
     </section>
 
     <!-- Image Section - set the background image for the header in the line below -->
@@ -209,5 +214,20 @@ document.getElementById("projetos").setAttribute("hidden", true);
 });
 
 
+$(".botao_manual_resposividade").click(function() {
+
+if ($(".menu_manual_resposividade").hasClass("show")) {
+$('.menu_manual_resposividade').removeClass('show');
+$('.botao_manual_resposividade').addClass('collapsed');
+$(".botao_manual_resposividade").attr("aria-expanded","false");
+$(".menu_manual_resposividade").attr("aria-expanded","false"); 
+}else{
+$('.menu_manual_resposividade').addClass('show');
+$('.botao_manual_resposividade').removeClass('collapsed');
+$(".botao_manual_resposividade").attr("aria-expanded","true");
+$(".menu_manual_resposividade").attr("aria-expanded","true");  
+}
+
+});
 
     </script>
